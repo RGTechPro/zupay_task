@@ -5,8 +5,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key}) : super(key: key);
+ProductCard({
+required this.itemTitle,required this.itemCategory,required this.itemImage,required this.itemPrice
 
+});
+String itemImage;
+String itemTitle;
+String itemCategory;
+double itemPrice;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +29,7 @@ class ProductCard extends StatelessWidget {
               width: 175,
               child: FittedBox(
                 child: Image.asset(
-                  'assets/girl.png',
+                  itemImage,
                   height: 180,
                   width: 175, fit: BoxFit.fill,
                   // fit: BoxFit.fitWidth,
@@ -32,13 +38,13 @@ class ProductCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 13, left: 12),
-              child: Text('Nicole Miller',
+              child: Text(itemCategory,
                   style: GoogleFonts.poppins(
                       color: Color(0xff7154B8), fontSize: 10)),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 12, bottom: 8),
-              child: Text('Me Bandage Dress',
+              child: Text(itemTitle,
                   style: GoogleFonts.poppins(
                       color: Color(0xff4B4A5A), fontSize: 12)),
             ),
@@ -47,7 +53,7 @@ class ProductCard extends StatelessWidget {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('\$110.00',
+                    Text('\$ $itemPrice',
                         style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontSize: 16,

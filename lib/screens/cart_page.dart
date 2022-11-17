@@ -45,12 +45,45 @@ class CartPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Container(
-                height: 514,
+                height: 460,
                 child: ListView(
                   children: [CartCard(), CartCard()],
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Total Price',
+                      style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16))),
+                  Text('\$ 69.00',
+                      style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Container(
+                width: double.infinity,
+                height: 64,
+                child: TextButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black)),
+                    child: Text('Payment',
+                        style: GoogleFonts.poppins(
+                            textStyle:
+                                TextStyle(fontSize: 16, color: Colors.white)))),
+              ),
+            )
           ],
         ),
       ),
