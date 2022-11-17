@@ -3,8 +3,11 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 import 'package:zupay_task/custom_icons_icons.dart';
 import 'package:zupay_task/widgets/cart_card.dart';
+
+import '../provider/product.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -46,9 +49,36 @@ class CartPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Container(
                 height: 460,
-                child: ListView(
-                  children: [CartCard(), CartCard()],
-                ),
+                child: (Provider.of<ProductProvider>(context, listen: false)
+                            .indices
+                            .length !=
+                        null)
+                    ? ListView.builder(
+                        itemCount:
+                            Provider.of<ProductProvider>(context, listen: false)
+                                .indices
+                                .length,
+                        itemBuilder: (context, index) {
+                          return CartCard(
+                            itemImage: Provider.of<ProductProvider>(context,
+                                    listen: false)
+                                .cartData![index]
+                                .itemImage!,
+                            itemPrice: Provider.of<ProductProvider>(context,
+                                    listen: false)
+                                .cartData![index]
+                                .itemPrice!,
+                            itemTitle: Provider.of<ProductProvider>(context,
+                                    listen: false)
+                                .cartData![index]
+                                .itemTitle!,
+                            index: index,
+                          );
+                        })
+                    : Text('No items in the cart',
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16))),
               ),
             ),
             Padding(

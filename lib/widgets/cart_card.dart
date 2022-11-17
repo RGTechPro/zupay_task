@@ -5,14 +5,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CartCard extends StatelessWidget {
-// CartCard({
-// required this.itemTitle,required this.itemCategory,required this.itemImage,required this.itemPrice
-
-// });
-// String itemImage;
-// String itemTitle;
-// String itemCategory;
-// double itemPrice;
+  CartCard(
+      {required this.itemTitle,
+      required this.itemImage,
+      required this.itemPrice,required this.index});
+  String itemImage;
+  String itemTitle;
+  double itemPrice;
+  int index;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,8 +24,8 @@ class CartCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(
-                  'assets/girl.png',
+                Image.network(
+                  itemImage,
                   height: 80,
                   width: 80,
                   fit: BoxFit.fill,
@@ -37,7 +37,7 @@ class CartCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Me Bandage Dress',
+                      Text(itemTitle,
                           style: GoogleFonts.poppins(
                               color: Color(0xff4B4A5A),
                               fontSize: 12,
@@ -85,7 +85,7 @@ class CartCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('\$ 69.00',
+                      Text('\$ ${itemPrice}',
                           style: GoogleFonts.poppins(
                               color: Colors.black,
                               fontSize: 14,
