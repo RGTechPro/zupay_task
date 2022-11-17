@@ -16,13 +16,10 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-          onWillPop: () {
+      onWillPop: () {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(
-                builder: (context) => HomePage(
-                     
-                    )),
+            MaterialPageRoute(builder: (context) => HomePage()),
             (route) => false);
         return Future.value(false);
       },
@@ -35,19 +32,18 @@ class CartPage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 64, left: 24, right: 24, bottom: 42),
+                      top: 64, left: 10, right: 24, bottom: 42),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        child: Image.asset('assets/back.png'),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()));
-                        },
-                      ),
+                      TextButton(
+                          onPressed: (() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()));
+                          }),
+                          child: Image.asset('assets/back.png')),
                       Text('Your Cart',
                           style: GoogleFonts.poppins(
                               textStyle: TextStyle(
@@ -66,7 +62,7 @@ class CartPage extends StatelessWidget {
             child: Container(
               height: 460,
               child: (Provider.of<ProductProvider>(context, listen: false)
-                          .indices
+                          .cartData
                           .length !=
                       null)
                   ? ListView.builder(
@@ -76,18 +72,18 @@ class CartPage extends StatelessWidget {
                               .length,
                       itemBuilder: (context, index) {
                         return CartCard(
-                          itemImage:
-                              Provider.of<ProductProvider>(context, listen: false)
-                                  .cartData[index]
-                                  .itemImage!,
-                          itemPrice:
-                              Provider.of<ProductProvider>(context, listen: false)
-                                  .cartData[index]
-                                  .itemPrice!,
-                          itemTitle:
-                              Provider.of<ProductProvider>(context, listen: false)
-                                  .cartData[index]
-                                  .itemTitle!,
+                          itemImage: Provider.of<ProductProvider>(context,
+                                  listen: false)
+                              .cartData[index]
+                              .itemImage!,
+                          itemPrice: Provider.of<ProductProvider>(context,
+                                  listen: false)
+                              .cartData[index]
+                              .itemPrice!,
+                          itemTitle: Provider.of<ProductProvider>(context,
+                                  listen: false)
+                              .cartData[index]
+                              .itemTitle!,
                           index: index,
                         );
                       })

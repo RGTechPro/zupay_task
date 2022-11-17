@@ -109,10 +109,13 @@ class _CartCardState extends State<CartCard> {
                           GestureDetector(
                             onTap: (() {
                               setState(() {
-                                if (quantity == 1) {
+                                if (Provider.of<ProductProvider>(context,
+                                      listen: false).cartData[widget.index].quantity == 1) {
                                   showAlertDialog(context, widget.index);
-                                } else if (quantity >= 2) {
-                                  quantity--;
+                                } else if (Provider.of<ProductProvider>(context,
+                                      listen: false).cartData[widget.index].quantity >= 2) {
+                                  Provider.of<ProductProvider>(context,
+                                      listen: false).cartData[widget.index].quantity--;
                                   Provider.of<ProductProvider>(context,
                                           listen: false)
                                       .decreasePrice(widget.index);
@@ -127,14 +130,16 @@ class _CartCardState extends State<CartCard> {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 13),
-                            child: Text(quantity.toString(),
+                            child: Text(Provider.of<ProductProvider>(context,
+                                      listen: false).cartData[widget.index].quantity.toString(),
                                 style: GoogleFonts.poppins(
                                     color: Colors.black, fontSize: 14)),
                           ),
                           GestureDetector(
                             onTap: (() {
                               setState(() {
-                                quantity++;
+                                Provider.of<ProductProvider>(context,
+                                      listen: false).cartData[widget.index].quantity++;
                               });
 
                               Provider.of<ProductProvider>(context,

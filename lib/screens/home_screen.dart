@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Container(
-            height: 514,
+            height: 485,
             child: FutureBuilder<List<Product>>(
                 future: fetchProducts(),
                 builder: (context, snapshot) {

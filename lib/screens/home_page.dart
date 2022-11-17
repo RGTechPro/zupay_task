@@ -33,33 +33,50 @@ class _HomePageState extends State<HomePage> {
           children: [
             (selectedIndex == 0 ? HomeScreen() : CartPage()),
             if (selectedIndex == 0)
-              Container(
-                height: 90,
-                color: Colors.white,
-                child: GNav(
-                    selectedIndex: 0,
-                    onTabChange: (value) {
-                      setState(() {
-                        selectedIndex = value;
-                      });
-                    },
-                    color: Color(0xffAFBEC4),
-                    padding: EdgeInsets.all(20),
-                    tabBorderRadius: 30,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    gap: 13.2,
-                    tabBackgroundColor: Color(0xfff0f0f3),
-                    tabs: [
-                      GButton(
-                         
-                          icon: CustomIcons.home,
-                          text: 'Home',
-                          textStyle: GoogleFonts.poppins(color: Colors.black)),
-                      GButton(
-                          semanticLabel: 'dbh',    icon: CustomIcons.bag,
-                          text: 'Bag',
-                          textStyle: GoogleFonts.poppins(color: Colors.black))
-                    ]),
+              Consumer<ProductProvider>(
+                builder: (context, value, child) {
+                  return Container(
+                    height: 118,
+                    color: Colors.white,
+                    child: GNav(
+                        selectedIndex: 0,
+                        onTabChange: (value) {
+                          setState(() {
+                            selectedIndex = value;
+                          });
+                        },
+                        color: Color(0xffAFBEC4),
+                        padding: EdgeInsets.all(20),
+                        tabBorderRadius: 30,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        gap: 13.2,
+                        tabBackgroundColor: Color(0xfff0f0f3),
+                        tabs: [
+                          GButton(
+                              icon: CustomIcons.home,
+                              text: 'Home',
+                              textStyle:
+                                  GoogleFonts.poppins(color: Colors.black)),
+                          GButton(
+                              leading: Badge(
+                                  badgeContent: Text(
+                                      Provider.of<ProductProvider>(context,
+                                              listen: true)
+                                          .cartData
+                                          .length
+                                          .toString()),
+                                  showBadge: true,
+                                  child: Icon(
+                                    CustomIcons.bag,
+                                    color: Color(0xffAFBEC4),
+                                  )),
+                              icon: CustomIcons.bag,
+                              text: 'Bag',
+                              textStyle:
+                                  GoogleFonts.poppins(color: Colors.black))
+                        ]),
+                  );
+                },
               )
           ],
         ),

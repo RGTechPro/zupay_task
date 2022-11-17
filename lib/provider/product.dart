@@ -7,11 +7,12 @@ class ProductProvider extends ChangeNotifier {
   List indices = [];
   List<Product> cartData = [];
   double totalPrice = 0;
-  void addToCart(int index) {
-    bool isExist=false;
-    for(int i=0;i<cartData.length;i++){
-      if(cartData[i].id==productList![index].id){
-isExist=true;
+  int selectedScreen = 0;
+  bool addToCart(int index) {
+    bool isExist = false;
+    for (int i = 0; i < cartData.length; i++) {
+      if (cartData[i].id == productList![index].id) {
+        isExist = true;
       }
     }
     if (!isExist) {
@@ -26,6 +27,8 @@ isExist=true;
       print('added');
       calculateTotalPrice();
     }
+    notifyListeners();
+    return isExist;
   }
 
   void removeItem(int index) {
