@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:zupay_task/widgets/alert_dialog.dart';
 
 import '../provider/product.dart';
 
@@ -50,6 +51,7 @@ class _CartCardState extends State<CartCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(widget.itemTitle,
+                          maxLines: 3,
                           style: GoogleFonts.poppins(
                               color: Color(0xff4B4A5A),
                               fontSize: 12,
@@ -107,11 +109,15 @@ class _CartCardState extends State<CartCard> {
                           GestureDetector(
                             onTap: (() {
                               setState(() {
-                                quantity--;
+                                if (quantity == 1) {
+                                  showAlertDialog(context, widget.index);
+                                } else if (quantity >= 2) {
+                                  quantity--;
+                                  Provider.of<ProductProvider>(context,
+                                          listen: false)
+                                      .decreasePrice(widget.index);
+                                }
                               });
-                              Provider.of<ProductProvider>(context,
-                                      listen: false)
-                                  .decreasePrice(widget.index);
                             }),
                             child: Container(
                               decoration: BoxDecoration(

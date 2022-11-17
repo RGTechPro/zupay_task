@@ -8,7 +8,13 @@ class ProductProvider extends ChangeNotifier {
   List<Product> cartData = [];
   double totalPrice = 0;
   void addToCart(int index) {
-    if (!indices.contains(index)) {
+    bool isExist=false;
+    for(int i=0;i<cartData.length;i++){
+      if(cartData[i].id==productList![index].id){
+isExist=true;
+      }
+    }
+    if (!isExist) {
       selectedIndex = index;
 
       indices.add(selectedIndex);
@@ -21,14 +27,23 @@ class ProductProvider extends ChangeNotifier {
       calculateTotalPrice();
     }
   }
-  // void removeItem(int index) {
-  //   cartData.removeWhere((element) => element == cartdata[index].medicineName);
-  //   cartdata[index].updatedMrp = cartdata[index].mrp;
-  //   cartdata[index].itemcount = 1;
-  //   cartdata.removeAt(index);
-  //   updateTotalMrp();
-  //   notifyListeners();
-  // }
+
+  void removeItem(int index) {
+    print('old index:$index');
+    totalPrice = totalPrice - cartData[index].itemPrice!;
+    cartData.removeAt(index);
+    print('hi');
+    print(cartData.length);
+
+    print(indices);
+    // indices.forEach((element) {
+    //   print(element);
+    // });
+    print("index:$index");
+    // indices.removeWhere((element) => element == index);
+    calculateTotalPrice();
+    notifyListeners();
+  }
 
   void increasePrice(int index) {
     totalPrice = totalPrice + cartData[index].itemPrice!;
@@ -41,6 +56,10 @@ class ProductProvider extends ChangeNotifier {
   }
 
   void calculateTotalPrice() {
-    totalPrice = totalPrice + cartData[selectedIndex!].itemPrice!;
+    double temp = 0;
+    for (int i = 0; i < cartData.length; i++) {
+      temp = temp + cartData[i].itemPrice!;
+    }
+    totalPrice = temp;
   }
 }
