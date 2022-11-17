@@ -6,12 +6,14 @@ class Product {
   String? itemCategory;
   double? itemPrice;
   int? id;
+  int quantity;
   Product({
     this.itemImage,
     this.itemTitle,
     this.itemCategory,
     this.itemPrice,
     this.id,
+    this.quantity=1
   });
 
   Map<String, dynamic> toMap() {

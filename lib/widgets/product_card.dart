@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../custom_icons_icons.dart';
 import '../provider/product.dart';
 
 class ProductCard extends StatelessWidget {
@@ -71,12 +72,15 @@ class ProductCard extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 8.3),
                         child: GestureDetector(
-                          onTap: () {  print(index);
+                          onTap: () {
+                            print(index);
                             Provider.of<ProductProvider>(context, listen: false)
                                 .addToCart(index);
-                          
                           },
-                          child: Image.asset('assets/bag.png'),
+                          child: Icon(
+                            CustomIcons.bag,
+                            color: Color(0xffAFBEC4),
+                          ),
                         ),
                       )
                     ]),

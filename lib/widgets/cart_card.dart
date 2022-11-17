@@ -3,16 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-class CartCard extends StatelessWidget {
+import '../provider/product.dart';
+
+class CartCard extends StatefulWidget {
   CartCard(
       {required this.itemTitle,
       required this.itemImage,
-      required this.itemPrice,required this.index});
+      required this.itemPrice,
+      required this.index});
   String itemImage;
   String itemTitle;
   double itemPrice;
   int index;
+
+  @override
+  State<CartCard> createState() => _CartCardState();
+}
+
+class _CartCardState extends State<CartCard> {
+  int quantity = 1;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +37,7 @@ class CartCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.network(
-                  itemImage,
+                  widget.itemImage,
                   height: 80,
                   width: 80,
                   fit: BoxFit.fill,
@@ -37,7 +49,7 @@ class CartCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(itemTitle,
+                      Text(widget.itemTitle,
                           style: GoogleFonts.poppins(
                               color: Color(0xff4B4A5A),
                               fontSize: 12,
@@ -85,28 +97,49 @@ class CartCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('\$ ${itemPrice}',
+                      Text('\$ ${widget.itemPrice}',
                           style: GoogleFonts.poppins(
                               color: Colors.black,
                               fontSize: 14,
                               fontWeight: FontWeight.bold)),
                       Row(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xffd1d9dd))),
-                            child: Icon(Icons.remove),
+                          GestureDetector(
+                            onTap: (() {
+                              setState(() {
+                                quantity--;
+                              });
+                              Provider.of<ProductProvider>(context,
+                                      listen: false)
+                                  .decreasePrice(widget.index);
+                            }),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0xffd1d9dd))),
+                              child: Icon(Icons.remove),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 13),
-                            child: Text('1',
+                            child: Text(quantity.toString(),
                                 style: GoogleFonts.poppins(
                                     color: Colors.black, fontSize: 14)),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xffd1d9dd))),
-                            child: Icon(Icons.add),
+                          GestureDetector(
+                            onTap: (() {
+                              setState(() {
+                                quantity++;
+                              });
+
+                              Provider.of<ProductProvider>(context,
+                                      listen: false)
+                                  .increasePrice(widget.index);
+                            }),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0xffd1d9dd))),
+                              child: Icon(Icons.add),
+                            ),
                           )
                         ],
                       )

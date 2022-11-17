@@ -59,26 +59,31 @@ class CartPage extends StatelessWidget {
                                 .indices
                                 .length,
                         itemBuilder: (context, index) {
+                       
                           return CartCard(
                             itemImage: Provider.of<ProductProvider>(context,
                                     listen: false)
-                                .cartData![index]
+                                .cartData[index]
                                 .itemImage!,
                             itemPrice: Provider.of<ProductProvider>(context,
                                     listen: false)
-                                .cartData![index]
+                                .cartData[index]
                                 .itemPrice!,
                             itemTitle: Provider.of<ProductProvider>(context,
                                     listen: false)
-                                .cartData![index]
+                                .cartData[index]
                                 .itemTitle!,
                             index: index,
                           );
                         })
-                    : Text('No items in the cart',
-                        style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16))),
+                    : Center(
+                        child: Text('No items in the cart',
+                            style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 16))),
+                      ),
               ),
             ),
             Padding(
@@ -90,7 +95,7 @@ class CartPage extends StatelessWidget {
                       style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16))),
-                  Text('\$ 69.00',
+                  Text('\$ ${Provider.of<ProductProvider>(context).totalPrice.toStringAsFixed(2)}',
                       style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontSize: 24,
